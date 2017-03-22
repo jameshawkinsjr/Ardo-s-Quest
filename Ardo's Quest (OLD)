@@ -1,0 +1,59 @@
+You are Ardo. You have to collect 3 Gym Equipments from the Big Boy Gym in order to get a Girlfriend.
+
+User:
+	- Strength
+	- Stamina
+
+Objects:
+	- Gloves (+3 Strength)
+	- Straps (+5 Strength)
+	- Tank Top (+1 Strength)
+	- Flyknits (+1 Strength)
+	- Protein Shake (+10 Strength, +5 Stamina)
+
+Special Items:
+	- [Gym Equipment] Dumbbell
+	- [Gym Equipment] Treadmill
+	- [Gym Equipment] Barbell
+
+Possible Sidekicks:
+	- Gym Bro 1
+
+Enemies:
+	- The Talker
+	- The Looker
+	- Gainz Goblin
+
+Locations:
+	- Town
+		- Visit store, purchase an item (Bow & Arrow or Sword)
+	- Road to Forbidden Forest
+		- See Merchant along the way
+			- Can't afford any of his goods
+			- You can attack him. When you kill him, there's a locked box with a Skeleton on it, but you don't have a key.
+	- Forbidden Forest
+		- Dwarf's Hut
+			- Kill him or have him as sidekick
+		- Siren's Lake
+			- Drink water (gain health)
+			- Talk to beautiful woman (get seduced, if you have a weapon, lose it, return to entrance of forest)
+				- She claims to have information about some myterious treasure hidden behind the waterfall
+			- Kill beautiful woman
+		- Cave behind Waterfall
+			- 3-headed beast waiting for you
+				- If you attack first, it takes away 1/2 of your health, but you kill it. Nothing in cave.
+				- If you hide, it falls asleep, you kill it. Nothing in cave.
+		- Peaceful Meadow
+			- Short Nap (gain 50% health)
+			- Long Nap (gain 100% health, but you lost your Shield (if you have one))
+	- Witch's House
+		- No one is home
+		- Search house, find a Ruby Amulet, a Skeleton key, and a potion
+			- Take Ruby Amulet
+			- Drink Potion (you become disoriented, )
+	- Goblin's Lair
+		- Fight the goblin
+			- Win: Loot body, find Sapphire Amulet
+			- Lose: Die
+	- King's Castle
+		- Bring 3 Amulets to King. Confronted by the Witch.

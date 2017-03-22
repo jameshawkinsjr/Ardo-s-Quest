@@ -1,0 +1,74 @@
+You are Ardo. You have to collect 3 Gym Equipments from the Big Boy Gym in order to get a Girlfriend.
+
+Objective:
+	- Get big in the fewest days
+	- Collect 3 Gym Equipments
+	- Gain at least 30 Strength
+
+User:
+	- Strength [5 Strength]
+	- Stamina [100 Stamina]
+
+Inventory:
+	- Gloves (+3 Strength)
+	- Straps (+5 Strength)
+	- Tank Top (+1 Strength)
+	- Flyknits (+1 Strength)
+	- [Gym Equipment] Dumbbell
+	- [Gym Equipment] Treadmill
+	- [Gym Equipment] Barbell
+
+Consumables:
+	- Protein Shake (+10 Strength, +5 Stamina)
+	- Moldy Protein Shake (-2 Strength, -20 Stamina)
+
+Encounters
+	- GYM BRO T
+	- GYM BRO J
+	- THE TALKER
+	- THE LOOKER
+	- CUTE GYM GIRL
+	- GAINZ GOBLIN
+
+Locations:
+	- [555 Office]
+		- Do you go to the new gym at 555 or go to Fitness SF?
+			- Gym at 555: -5 Strength. You lose.
+	- [Muni Station]
+		- You have to run to catch the train, -5 Stamina
+		- Find Protein Shake - do you drink?
+			- Yes: -20 Stamina - it was moldy
+			- No: Good idea - it looked moldy
+	- [Passing 1455]
+		- Run into a few Gym Broz at 1455. Do you work out with Gym Bro T, Gym Bro J, or alone?
+			- GYM BRO T: -2 Strength, -5 Stamina
+			- GYM BRO J: +5 strength, -20 Stamina
+			- ALONE: +2 strength, - 5 Stamina
+
+	- [Gym Entrance]
+		- Scan your card, doesn't work.
+		- You have a $5 bill -- do you buy a protein shake and try to sneak in or give the employee a $5 bribe and go in?
+			- Buy protein shake (+10 Strength) and sneak in (-5 Stamina)
+			- Bribe employee, get Fistbump. (+2 Strength)
+
+	- [Locker Room]
+		- Find a pair of gloves - do you take them?
+			- If yes, the Gainz Goblin appears and you have to answer a riddle.
+				- Answer correctly, get the gloves (+3 Strength)
+				- Answer incorrectly, get nothing (-20 Stamina)
+	
+	- [Deadlift Platform]
+		- Found a pair of straps, do you use them?
+		- Run into The Talker. Do you stop and chat or do you ignore him and work out?
+		- How many times do you want to Deadlift?
+			- Each set is +1 Strength, -5 Stamina
+			- If you do more than 5 sets, Cute Gym Girl gives you a pair of Flyknits
+		- If you can complete this game, you get a [Gym Equipment] Barbell
+	
+	- [Incline Bench]
+		- How many times do you want to Deadlift?
+			- Each set is +2 Strength, -8 Stamina
+		- If you can complete this game, you get a [Gym Equipment] Dumbbell
+	
+	- [Shower]
+		- You see The Looker go into the showers. Do you take a shower or grab your bag and leave?
