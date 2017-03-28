@@ -1,3 +1,16 @@
+To Do:
+- What if you lock yourself out of your locker
+- Find places for other 2 collectibles
+- Find place for Alex
+- You see a homeless person, give him money?
+- What does the CUTE CHICK do? Squat Rack
+- The LOOKER in the shower
+- Clear console for locker number (after every selection) print(chr(27) + "[2J")
+- Grlfriend texts him
+
+
+
+
 You are Ardo. You have to collect 3 Gym Equipments from the Big Boy Gym in order to get a Girlfriend.
 
 Objective:

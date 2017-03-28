@@ -12,12 +12,12 @@ STAMINA = 100
 DAYS = 1
 CHARISMA = 0
 NAME = ""
-MONEY = 0
+MONEY = randint(5,7)
 GYMBAG = []
 POSSE = []
 LOCKERNUMBER = 0
-LOCKERCOMBO = []
-COLLECTIBLES = ['Dumbbell','Treadmill', 'Barbell']
+LOCKERCOMBO = 0
+COLLECTIBLES = []
 
 def watch():
 	print "You glance down at your Ultra Gym Bro Watch Plus XL(TM)"
@@ -42,7 +42,11 @@ def add_strength(amount):
 
 def add_collectible(item):
 	COLLECTIBLES.append(item)
-	print "\t**You unlocked '[Gym Equipment] %s'**" % (item)
+	print "\t**You unlocked '[COLLECTIBLE] %s'**" % (item)
+	if 'Dumbbell' in COLLECTIBLES and 'Treadmill' in COLLECTIBLES and 'Barbell' in COLLECTIBLES and STRENGTH > 40:
+		a_map = Map('you_win')
+		a_game = Engine(a_map)
+		a_game.play()
 
 def remove_strength(amount):
 	global STRENGTH
@@ -98,13 +102,15 @@ def wrong_choice():
 	remove_strength(1)
 
 def gym_bag():
-	print "You unzip your gym bag and look inside. Right now, you have:"
-	if not GYMBAG and not COLLECTIBLES:
+	print "You look inside your gym bag. Right now, you have:"
+	if not GYMBAG and not COLLECTIBLES and MONEY == 0:
 		print "\t - Nothing"
 	for i in GYMBAG:
 		print "\t- %s" % i 
 	for i in COLLECTIBLES:
-		print "\t- [Gym Equipment] %s" %i
+		print "\t- [COLLECTIBLE] %s" %i
+	if MONEY > 0:
+		print "\t - $%d" % MONEY 
 
 def add_item(item):
 	GYMBAG.append(item)
@@ -115,7 +121,7 @@ def remove_item(item):
 	print "\t**%s was removed from your gym bag**" % (item)
 
 
-def gym_POSSE():
+def gym_posse():
 	print "You glance at FB Messenger to see who is going to hit the gym with you:"
 	if not POSSE:
 		print "\t- No one"
@@ -169,6 +175,7 @@ class Welcome(Scene):
 		"Weakling",
 		"Chicken Legs",
 		"Spaghetti Arms",
+		"Little Boy",
 	]
 
 	def enter(self):
@@ -188,18 +195,17 @@ class Welcome(Scene):
 			print "\nWelcome to 'Getting Big' featuring %s Ardo!\n" % (Welcome.titles[randint(0, len(self.titles)-1)])
 			sleep(1)
 			print "The Objectives of this game are:"
-			sleep(1)
 			print "\t - Get to 40 STRENGTH"
-			print "\t - Gather all 3 pieces of [Gym Equipment]"
+			print "\t - Gather all 3 COLLECTIBLE items"
 			print "\t - Do this in as few days as possible"
 			print "\n"
 			sleep(1)
-			print "Press Enter to get started"
-			next_step = raw_input("")
+			next_step = raw_input("Press Enter to get started \n")
 			if next_step == "":
-				sleep(1)
+				sleep(1)				
 				return '555_office'
 			else:
+
 				return next_step
 
 
@@ -213,6 +219,7 @@ class Office_555(Scene):
 		"staring longingly out the window.",
 		"acting like you've been working for a few hours.",
 		"daydreaming about being big.",
+		"wondering if the pope ever just wears regular clothes.",
 		]
 
 	workout = [
@@ -221,14 +228,15 @@ class Office_555(Scene):
 		"back day",
 		"shoulder day",
 		"tricep day",
-		"leg day"
+		"leg day",
 		]
 
 	def enter(self):
 		print "\n"
+		print "=" * 60
+		print "\n"
 		print "You're sitting at 555." 
-		print "You look at the clock."
-		print "It's 5:%dpm on %s (your favorite day)." % (randint(10,50), self.workout[randint(0, len(self.workout)-1)]) 
+		print "You look at the clock; It's 5:%dpm on %s (your favorite day)." % (randint(10,50), self.workout[randint(0, len(self.workout)-1)]) 
 		print "You just finished %s" % self.things[randint(0, len(self.things)-1)]
 		print "\n"
 		sleep(1)
@@ -236,41 +244,44 @@ class Office_555(Scene):
 		print "\n"
 		sleep(1)
 		watch()
-		print "\n"
 		sleep(1)
 		print "Do you SKIP the gym and eat pizza or GO get big?"
 
 		while True:
-			action = raw_input("['SKIP' or 'GO'] ")
+			action = raw_input("\n['SKIP' or 'GO'] ")
 
 			if action.lower() == "skip":
 				return 'try_again'
 	
 			elif action.lower() == "go":
 				print "\nThat's how you get big."
-				print "Are you going to go go BIG BOY GYM or BABY GYM AT 555?\n"
+				print "Are you going to go to GLOBO FITNESS or WELLNESS CENTER?\n"
 					
 				while True:
-					action = raw_input("['BIG BOY' or 'BABY GYM'] ")
-					if action.lower() == "big boy":
+					action = raw_input("['GLOBO FITNESS' or 'WELLNESS CENTER'] ")
+					if action.lower() == "globo fitness":
 						print "\n"
 						print "Nice choice, broseph!"
-						print "Before you go, do you grab your MONEY or MEMBERSHIP CARD?"
+						print "Before you go, do you grab some MONEY or your MEMBERSHIP CARD?\n"
 						while True:
 							action = raw_input("['MONEY' or 'CARD'] ")
 							if action.lower() == "money":
+								print "\n"
 								add_money(randint(7,12))								
 								break
 							elif action.lower() == "card":
+								print "\n"
 								add_item("MEMBERSHIP CARD")
 								break
 							else:
 								wrong_choice()
-						print "\nTime to head down to Muni."
+						print "\n"
+						print "=" * 60
+						print "\n\t ** You leave the office to hop on MUNI **"
 
 						return 'muni_station'
 		
-					elif action.lower() == "baby gym":
+					elif action.lower() == "welness center":
 						print "\n"
 						print "There's no saving you."
 						remove_strength(2)
@@ -288,7 +299,7 @@ class MuniStation(Scene):
 	def enter(self):
 		print "\n"
 		sleep(1)
-		print "You've entered the dark, seedy, underbelly of the SF Muni."
+		print "You enter the dark, seedy, underbelly of the SF Muni."
 		print "The station is packed with people."
 		print "As you're walking down the stairs, the train comes to screeching halt."
 		print "You have to run to catch the train.\n"
@@ -392,7 +403,7 @@ class GymEntrance(Scene):
 			if action.lower() == "y":
 				if "MEMBERSHIP CARD" in GYMBAG:
 					print "You scan your MEMBERSHIP CARD and are granted access into the Temple."
-					print "\t**YOUSEF gives you a Fistbump**"
+					print "\n\t**YOUSEF gives you a fistbump**"
 					add_strength(2)
 					break
 				else:
@@ -403,8 +414,7 @@ class GymEntrance(Scene):
 						if bribe.lower() == "y":
 							print "You slip YOUSEF a $5 bill\n"
 							remove_money(5)
-							print "\nYOUSEF (whispering): **Thanks buddy - check out locker 88, combo 2828.**"
-							break
+							break							
 						elif bribe.lower() == "n":
 							print "You can't get into the gym."
 							return 'try_again'
@@ -445,15 +455,35 @@ class GymEntrance(Scene):
 					add_item("TANKTOP")
 					remove_money(5)
 				else:
-					print "You don't have enough money"
+					print "\nYou don't have enough money"
 				break
 			elif action.lower() == "n":
 				print "You decide not to purchase TANKTOP."
 				break
 			else:
-				wrong_choice()				
+				wrong_choice()
+		sleep(1)
+		print "\n\t** YOUSEF looks around, suspiciously **"
+		sleep(1)
+		print "\nYOUSEF (whispering): Hey buddy - got a hot tip for you."
+		print "YOUSEF (whispering): What do you say, five bucks?"
+		while True:
+			action = raw_input("[Give YOUSEF $5 for tip? 'Y/N'] ")
+			if action.lower() == "y":
+				if MONEY >= 5:
+					print "\nYOUSEF (whispering): Check out locker 88, combo 2828."
+					remove_money(5)
+				else:
+					print "\nYou don't have enough money. Maybe tomorrow."
+				break
+			elif action.lower() == "n":
+				print "You tell YOUSEF that you're not interested."
+				break
+			else:
+				print "\nYOUSEF (whispering): I'm not sure what that means..."
 		print "\n"
-		print "You continue towards the LOCKER ROOM."
+		print "You walk into the Temple of Brodin and grab a towel."
+		print "\n"
 		return 'locker_room'
 
 class LockerRoom(Scene):
@@ -526,6 +556,16 @@ class GymFloor(Scene):
 
 	def enter(self):
 		sleep(2)
+		if "GYM BRO ALEX" not in POSSE:
+			print "\n\t ** GYM BRO ALEX appears **"
+			print "\nGYM BRO ALEX: What's up guys? What workout are you doing today?"
+			workout = raw_input("[What are you doing today?] ")
+			print "\nGYM BRO ALEX: Nice dude. I just did that yesterday, but I can work in with you."
+			option = raw_input("\n[Let GYM BRO ALEX join 'GYM BROZ'?] Y/N ")
+			if option.lower() == "y" or option.lower() == "yes":
+				add_member("GYM BRO ALEX")
+			else:
+				print "\n\t ** You walk away **"
 		print "\nWhere do you go next?"
 		print """
 Enter "BACK" for Deadlift (+10 Strength, -50 Stamina)
@@ -537,6 +577,7 @@ Enter "TRICEPS" for Skull Crushers (+3 Strength, -12 Stamina)
 Enter "LOCKER" to return to the Locker Room
 Enter "WATCH" to check your stats
 Enter "SHOWER" to hit the showers
+Enter "BROZ" to check who is in your group
 Enter "BAG" to check your gym bag
 Enter "HOME" to leave the gym
 			"""
@@ -562,8 +603,13 @@ Enter "HOME" to leave the gym
 				return 'showers'
 			elif action.lower() == 'watch':
 				watch()
+				return 'gym_floor'
+			elif action.lower() == 'broz':
+				gym_posse()
+				return 'gym_floor'	
 			elif action.lower() == 'bag':
 				gym_bag()
+				return 'gym_floor'
 			else: 
 				wrong_choice()
 
@@ -595,14 +641,14 @@ class BenchPress(Scene):
 	def enter(self):
 		print "\nBench press. Nice."
 		sleep(1)
-		print "\nYou see a cute GYM CHICK checking you out at the other bench."
+		print "\nYou see a cute CUTE SMALL ASIAN GYM CHICK checking you out at the other bench."
 		print "Do you talk to her?"
 		while True:
-			action = raw_input("[Chat with cute GYM CHICK? 'Y/N'] ")
+			action = raw_input("[Chat with cute CUTE SMALL ASIAN  CHICK? 'Y/N'] ")
 			if action.lower() == "y":
-				print "You approach the GYM CHICK."
+				print "You approach the CUTE SMALL ASIAN CHICK."
 				sleep(1)
-				print "\n\t** GYM CHICK suddenly turns into a GAINZ GOBLIN **"
+				print "\n\t** CUTE SMALL ASIAN CHICK suddenly turns into a GAINZ GOBLIN **"
 				print "\nGAINZ GOBLIN: If you give me a TANKTOP, I won't steal your gainz.\n"
 				sleep(1)
 				action = raw_input("[Give TANKTOP to GAINZ GOBLIN? 'Y/N'] ")
@@ -610,9 +656,9 @@ class BenchPress(Scene):
 					if action.lower() == "y":
 						print "You give TANKTOP to GAINZ GOBLIN"
 						remove_item("TANKTOP")
-						print "GAINZ GOBLIN turns back into GYM CHICK"
-						add_member("GYM CHICK")
-						add_strength(5)
+						print "GAINZ GOBLIN turns back into CUTE SMALL ASIAN CHICK"
+						add_member("CUTE SMALL ASIAN CHICK")
+						add_strength(2)
 				else:
 					print "You have no TANKTOP to give.\n"
 					remove_strength(5)
@@ -638,32 +684,172 @@ class BenchPress(Scene):
 class BicepBusters(Scene):
 
 	def enter(self):
-		print "You made it to the incline bench"
+		print "You approach the cables to hit BICEPS real hard."
+		print "It's a trap!"
+		print "\n\t**The TALKER approaches you**"
+		print "\nTALKER: Hey guys."
+		sleep(2)
+		print "TALKER: What's up?"
+		sleep(2)
+		print "TALKER: Crazy busy here, huh?"
+		sleep(2)
+		print "TALKER: I'm doing some back workouts today."
+		sleep(2)
+		print "TALKER: Thinking about switching gyms."
+		sleep(2)
+		raw_input("[Do you 'ENGAGE' or 'IGNORE'?] ")
+		sleep(2)
+		print "TALKER: How is work?"
+		sleep(2)
+		print "TALKER: Everything has been crazy lately, know what I mean?"
+		sleep(2)
+		print "TALKER: Whoa Ardo, did are those new shoes?"
+		sleep(2)
+		print "TALKER: How do you like my new BOX shirt?"
+		sleep(2)
+		if "GYM BRO JAMES" in POSSE:
+			print "TALKER: GYM BRO JAMES -- haven't shaved in a few days I see!"
+			sleep(2)
+			print "TALKER: Growing a beard or what?"
+			sleep(2)
+		if "GYM BRO TIM" in POSSE:
+			print "TALKER: What's up GYM BRO TIM?"
+			sleep(2)
+		print "TALKER: I think this blue is a good color."
+		sleep(2)
+		print "TALKER: What do you guys normally do on back day?"
+		sleep(2)
+		print "TALKER: I haven't figured out my routine."
+		sleep(2)
+		print "TALKER: Anyway. Good talking -- see you guys later."
+		sleep(2)
+		print "\n\t**The TALKER leaves**"
+		sleep(2)
+		print "\nThat was painful. You're too tired to do Bicep Busters now."
+		remove_stamina(10)
 		return 'gym_floor'
 
 class MilitaryPress(Scene):
 
 	def enter(self):
-		print "You made it to the incline bench"
+		print "The goal of Military Press is to make it look like you're always shrugging."
+		while True:
+				action = raw_input("[How many sets of military press?] ")
+				if action.isdigit() and STAMINA - (80 * int(action)) >= 0:
+					print "\n"
+					add_strength(int(action) * 30)
+					remove_stamina(int(action) * 90)
+					break
+				elif action.isdigit() and STAMINA - (80 * int(action)) < 0:
+					print "You don't have enough STAMINA."
+					break
+				else:
+					wrong_choice()
 		return 'gym_floor'
 
 class Squats(Scene):
 
 	def enter(self):
-		print "You made it to the incline bench"
-		return 'gym_floor'
+		if "CUTE SMALL ASIAN CHICK" not in POSSE:
+			print "All racks are taken. If you had CUTE SMALL ASIAN CHICK in your party..."
+			print "Maybe you could get a rack"
+			return 'gym_floor'
+		else:
+			while True:
+				action = raw_input("[How many sets of squats?] ")
+				if action.isdigit() and STAMINA - (80 * int(action)) >= 0:
+					print "\n"
+					add_strength(int(action) * 30)
+					remove_stamina(int(action) * 90)
+					break
+				elif action.isdigit() and STAMINA - (80 * int(action)) < 0:
+					print "You don't have enough STAMINA."
+					break
+				else:
+					wrong_choice()
+			return 'gym_floor'
 
 class SkullCrushers(Scene):
 
 	def enter(self):
-		print "You made it to the incline bench"
+		print "You grabbed a bench to hit some skull crushers"
+		while True:
+			action = raw_input("[How many sets of skull crushers?] ")
+			if action.isdigit() and STAMINA - (12 * int(action)) >= 0:
+				print "\n"
+				add_strength(int(action) * 3)
+				remove_stamina(int(action) * 12)
+				break
+			elif action.isdigit() and STAMINA - (12 * int(action)) < 0:
+				print "You don't have enough STAMINA."
+				break
+			else:
+				wrong_choice()
+		sleep(2)
+		if "Barbell" not in COLLECTIBLES:
+			print "\n\t ** A shadowy figure appears over you **"
+			print(".")
+			sleep(1)
+			print(".")
+			sleep(1)
+			raw_input("\n[... are you Ready?]")
+			sleep(2)
+			print "\nSHADOWY BROSEIDON: Answer my riddle and you will be blessed with sleeve-busting Triceps"
+			print "SHADOWY BROSEIDON: Fill in the blanks from the 'Flexidus 7:12-16'"
+			sleep(2)
+			print """
+\t>12 - Honor your Sisters and Brothers, so that you may live long in Swolehalla.
+\t>13 - You shall push beyond your ____, for there is where Gains lie.
+\t>14 - You shall not commit _____.
+\t>15 - You shall not _____ Gains.
+\t>16 - You shall not give fake lifts. ____ must be impeccable.
+				"""
+			sleep(1)
+			print "\n"
+			print "=" * 60
+			print "\n"
+			print """
+SHADOWY BROSEIDON: Choose wisely...
+
+	>1. Limits, Reps, Forego, Spotting
+	>2. Reps, Gainz, Give, Physique
+	>3. Pump, Cardio, Steal, Form
+	>4. Comfort Zone, Swoleshaming, Earn, Lifts
+				"""
+			print "\n"
+			print "=" * 60
+			while True:
+				action = raw_input("[What do you choose?] ")
+				if action.isdigit() and int(action) == 3:
+					print "\nSHADOWY BROSEIDON: You have chosen wisely. Take this BARBELL and continue your quest."
+					add_collectible("Barbell")
+					break
+				elif action.isdigit() and (int(action) == 1 or int(action) == 2 or 	int(action) == 4):
+					print "\nSHADOWY BROSEIDON: The answer you have chosen is incorrect."
+					print "\n"
+					remove_strength(3)
+					break
+				else:
+					print "\nSHADOWY BROSEIDON: Try again."
+			print "\n\t ** The shadowy figure vanishes in a poof of smoke **"
 		return 'gym_floor'
 
 class Showers(Scene):
 
 	def enter(self):
-		print "You made it to the incline bench"
-		return 'welcome'
+		print "After a good workout, it's time to hit the showers."
+		if "LOOKER" not in POSSE:
+			print "You drop off your clothes and pull back the shower door to be confronted with the LOOKER."
+			print "You maintain eye contact with him for a few seconds."
+			option = raw_input("\n[Let LOOKER join 'GYM BROZ'?] Y/N ")
+			if option.lower() == "y" or option.lower() == "yes":
+				add_member("LOOKER")
+				add_collectible("Treadmill")
+			else:
+				print "\n\t ** You walk away **"
+				print "\n\t ** You watch the LOOKER put a '[COLLECTIBLE] Treadmill' into his gym bag **"
+
+		return 'gym_floor'
 
 # User State
 
@@ -687,7 +873,7 @@ class TryAgain(Scene):
 		global POSSE
 		POSSE = []
 		global MONEY
-		MONEY = 0
+		MONEY = randint(4,6)
 		global GYMBAG
 		GYMBAG = []
 		global LOCKERNUMBER
